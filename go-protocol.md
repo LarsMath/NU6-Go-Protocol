@@ -105,13 +105,13 @@ When the game is over the server will notify the clients of this game by sending
 
 <code>Client1: CORE.PASS</code>\
 <code>Client2: CORE.PASS</code>\
-<code>Server --> Client1, Client2: GAMEOVER\~BLACK\~181\~180</code>
+<code>Server --> Client1, Client2: CORE.GAMEOVER\~BLACK\~181\~180</code>
 
 or
 
 <code>Client1: CORE.MOVE\~37</code>\
 <code>Client2: CORE.SURRENDER</code>\
-<code>Server --> Client1, Client2: GAMEOVER\~BLACK\~19\~0\~SURRENDER</code>
+<code>Server --> Client1, Client2: CORE.GAMEOVER\~BLACK\~19\~0\~SURRENDER</code>
 
 Now the players can either look for a new game by using the <code>NEWGAME</code> command or sit back and enjoy their sweet victory.
 
