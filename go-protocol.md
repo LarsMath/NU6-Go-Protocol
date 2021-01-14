@@ -46,6 +46,8 @@ or
 <code>Client: CORE.HELLO\~AlphaGoZERO</code>\
 <code>Server: CORE.HELLO</code>
 
+Whenever the handshake is accepted, that is, the server sent <code>HELLO</code> back. After that <code>HELLO</code> is not a viable command for the client anymore and the server will respond with a <code>CORE.ERROR\~PROTOCOL</code> message.
+
 ### Starting a game
 In order to start a game a client has to let the server know it wants to play a game and on which board size. It does this by sending the <code>NEWGAME</code> command. The board is always a square, therefore only one integer is sent as boardsize. When no board size is chosen the standard of 19x19 is chosen. When a match between players is found the server will start a match and notify the clients using the <code>MATCH</code> command. This command passes the color the client plays in as well as the name of the opponent and the boardsize such that no confusion can arise. A possible communication:
 
