@@ -31,7 +31,7 @@ First we present an overview of the CORE commands, below we go into detail
 |<code>CORE.PASS</code>|-|
 |<code>CORE.ERROR\~[PATIENCE\|ILLEGAL\|PROTOCOL\|NAMETAKEN]<br>\~\<additional-info></code>|errortype<br>additional info depending on errortype|
 |<code>CORE.GAMEOVER\~[BLACK\|WHITE\|DRAW]<br>\~[#points-black]\~[#points-white]<br>\~\<SURRENDER\|DISCONNECT></code>|winner/draw<br>points of black<br>points of white<br>reason of game over if not game end
-|<code>CORE.BYE\~👋</code>|Good luck parsing this
+|<code>CORE.BYE</code>|-| 
 
 ### Handshake
 In order to make sure that communication is set properly between the server and the client a handshake will be executed at the start of communication. This is started by the client sending the <code>HELLO</code> command. When the server receives this it should either respond back with the <code>HELLO</code> command or give an error if the name chosen by the client is already taken. When the user wants to enable extensions these should be added to the initial hello. Two possible handshakes can look like this:
@@ -49,7 +49,13 @@ or
 Whenever the handshake is accepted, that is, the server sent <code>HELLO</code> back. After that <code>HELLO</code> is not a viable command for the client anymore and the server will respond with a <code>CORE.ERROR\~PROTOCOL</code> message.
 
 ### Starting a game
-In order to start a game a client has to let the server know it wants to play a game and on which board size. It does this by sending the <code>NEWGAME</code> command. The board is always a square, therefore only one integer is sent as boardsize. When no board size is chosen the standard of 19x19 is chosen. When a match between players is found the server will start a match and notify the clients using the <code>MATCH</code> command. This command passes the color the client plays in as well as the name of the opponent and the boardsize such that no confusion can arise. A possible communication:
+In order to start a game a client has to let the server know it wants to play a game and on which board size. It does this by sending the <code>NEWGAME</code> command. The board is always a square, therefore only one integer is sent as boardsize. When no board size is chosen the standard of 19x19 is chosen. CORE.ERROR~ILLEGALDIM will be returned by the server if the <boardsize> provided with the CORE.NEWGAME~ command is smaller than 3 or bigger than 50. When a match between players is found the server will start a match and notify the clients using the <code>MATCH</code> command. This command passes the color the client plays in as well as the name of the opponent and the boardsize such that no confusion can arise. A possible communication:
+
+<code>Client1: CORE.NEWGAME\~2</code>,
+<code>Server --> Client1: CORE.ERROR~ILLEGALDIM</code>,
+
+<code>Client1: CORE.NEWGAME\~52</code>,
+<code>Server --> Client1: CORE.ERROR~ILLEGALDIM</code>,
 
 <code>Client1: CORE.NEWGAME\~9</code>\
 <code>Client2: CORE.NEWGAME\~9</code>\
